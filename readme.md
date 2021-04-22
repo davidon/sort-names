@@ -1,5 +1,6 @@
 ### Install
-Run command: `composer install`
+Run command:  
+`composer install`
 ### Run from CLI
 `./name-sorter ./unsorted-names-list.txt`  
 *The prefix ./ might be needed on your system*
