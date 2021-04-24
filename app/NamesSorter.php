@@ -19,6 +19,12 @@ class NamesSorter implements NamesSorterInterface
      */
     private SorterCoreInterface $sorterCore;
     
+    /**
+     * NamesSorter constructor.
+     *
+     * @param \App\Interfaces\SorterCoreInterface $sorterCore
+     * Inject the core sorting instance in order to easily switch to different sort algorithm.
+     */
     public function __construct(SorterCoreInterface $sorterCore)
     {
         $this->sorterCore = $sorterCore;
