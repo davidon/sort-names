@@ -29,7 +29,7 @@ if (!$runningCli) {
 }
 
 if ($argc !== 2) {
-    die('The CLI script needs one and only one option' . $eol);
+    die('The CLI script needs only file path as argument.' . $eol);
 }
 $filePath = $argv[1];
 

@@ -7,7 +7,7 @@ Run command:
 
 * When there's no option  
   `./name-sorter`  
-  Output: *The CLI script needs one and only one option*
+  Output: *The CLI script needs only file path as argument.*
 ### Unit test
 Run:  
 `./vendor/bin/phpunit ./tests/NameSorterTest.php`  
