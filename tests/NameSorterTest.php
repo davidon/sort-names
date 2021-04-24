@@ -1,10 +1,10 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Tests;
 
 use App\NamesSorter;
+use App\MultiArraySorter;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,6 +16,10 @@ class NameSorterTest extends TestCase
 {
     /**
      * Unsorted names list.
+     *
+     * Although the fixture has duplicate records for each test method,
+     * it's preferred to use the literal form rather than going through transformation.
+     *
      * @const string
      */
     private const  UNSORTED_NAMES_LIST = <<<LIST
@@ -33,13 +37,28 @@ Frankie Conner Ritter
 LIST;
     
     /**
+     * @var \App\NamesSorter
+     */
+    private NamesSorter $sorter;
+    
+    /**
+     * setup to run before every test method.
+     */
+    protected function setUp(): void
+    {
+        $this->sorter = new NamesSorter(new MultiArraySorter());
+        
+        // This is to meet Liskov substitution principle, and also avoid PHPStorm warning.
+        parent::setUp();
+    }
+    
+    /**
      * Test sort names list
      * (using the original fixture).
      */
     public function testSortNamesList(): void
     {
-        $sorter = new NamesSorter();
-        $result = $sorter->sortNamesList(self::UNSORTED_NAMES_LIST);
+        $result = $this->sorter->sortNamesList(self::UNSORTED_NAMES_LIST);
         self::assertSame(
             // Don't tab the names list;
             // Good practice for unit test doesn't transform the expected result in any way.
@@ -65,8 +84,7 @@ SORTED,
      */
     public function testSortNamesListWithDuplicateSurnames(): void
     {
-        $sorter = new NamesSorter();
-        $result = $sorter->sortNamesList(
+        $result = $this->sorter->sortNamesList(
             <<<LIST
 Janet Parsons
 Vaughn Lewis
@@ -112,8 +130,7 @@ SORTED,
      */
     public function testSortNamesListWithDuplicateSurnamesGivenNames(): void
     {
-        $sorter = new NamesSorter();
-        $result = $sorter->sortNamesList(
+        $result = $this->sorter->sortNamesList(
             <<<LIST
 Janet Parsons
 Vaughn Lewis
@@ -159,8 +176,7 @@ SORTED,
      */
     public function testSortNamesListWithDuplicateSurnamesTwoGivenNames(): void
     {
-        $sorter = new NamesSorter();
-        $result = $sorter->sortNamesList(
+        $result = $this->sorter->sortNamesList(
             <<<LIST
 Janet Parsons
 Vaughn Lewis
@@ -196,6 +212,52 @@ Janet Parsons
 Frankie Conner Ritter
 Shelbi Nathan Yoder
 Shelby Nathan Yoder
+SORTED,
+            $result
+        );
+    }
+    
+    /**
+     * Test sort names list with only one given name.
+     */
+    public function testSortNamesListWithOneGivenName(): void
+    {
+        $result = $this->sorter->sortNamesList(
+            <<<LIST
+Janet Parsons
+Vaughn Lewis
+Waughn Lewis
+Julius Archer
+Nathan Yoder
+Mathan Yoder
+Marin Alvarez
+London Lindsey
+Tristan Bentley
+Leo Gardner
+Mathew Clarke
+Nathew Clarke
+Mikayla Lopez
+Conner Ritter
+LIST
+        );
+        self::assertSame(
+        // Don't tab the names list;
+        // Good practice for unit test doesn't transform the expected result in any way.
+            <<<SORTED
+Marin Alvarez
+Julius Archer
+Tristan Bentley
+Mathew Clarke
+Nathew Clarke
+Leo Gardner
+Vaughn Lewis
+Waughn Lewis
+London Lindsey
+Mikayla Lopez
+Janet Parsons
+Conner Ritter
+Mathan Yoder
+Nathan Yoder
 SORTED,
             $result
         );

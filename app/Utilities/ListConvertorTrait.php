@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Utilities;
 
 /**
- * Class ListConvertor
+ * Trait ListConvertorTrait
  */
 trait ListConvertorTrait
 {
@@ -56,10 +56,8 @@ trait ListConvertorTrait
      */
     private function sortArrayByColumns(array $data): array
     {
-        // each parameter must use $data[N], it can't be transformed in any way.
-        array_multisort($data[0], $data[1], $data[2], $data[3]);
-        
-        return $data;
+        // The reason to use instance of SorterCoreInterface is to provide flexibility to use different sorting algorithm.
+        return $this->sorterCore->sort($data);
     }
     
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Interfaces\NamesSorterInterface;
+use App\Interfaces\SorterCoreInterface;
 use App\Utilities\ListConvertorTrait;
 
 /**
@@ -12,6 +13,16 @@ use App\Utilities\ListConvertorTrait;
 class NamesSorter implements NamesSorterInterface
 {
     use ListConvertorTrait;
+    
+    /**
+     * @var \App\Interfaces\SorterCoreInterface
+     */
+    private SorterCoreInterface $sorterCore;
+    
+    public function __construct(SorterCoreInterface $sorterCore)
+    {
+        $this->sorterCore = $sorterCore;
+    }
     
     /**
      * @param string $unsortedNamesList
