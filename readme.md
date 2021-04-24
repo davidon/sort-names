@@ -10,7 +10,5 @@ Run command:
   Output: *The CLI script needs only file path as argument.*
 ### Unit test
 Run:  
-`./vendor/bin/phpunit ./tests/NameSorterTest.php`  
+`./vendor/bin/phpunit`  
 *Please change forward-slash to backslash on Windows*
-
-[![Build Status](https://travis-ci.com/davidon/sort-names.svg?branch=master)](https://travis-ci.com/davidon/sort-names)
