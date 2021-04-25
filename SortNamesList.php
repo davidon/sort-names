@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use App\NamesSorter;
 use App\MultiArraySorter;
+use App\Transformer;
 
 require_once("./vendor/autoload.php");
 
@@ -44,8 +45,10 @@ if (empty($unsortedNamesList)) {
     die('File is empty.');
 }
 
-$sortedNamesList = (new NamesSorter(new MultiArraySorter()))
-    ->sortNamesList($unsortedNamesList);
+$sortedNamesList = (new NamesSorter(
+    new MultiArraySorter(),
+    new Transformer()
+))->sortList($unsortedNamesList);
 
 file_put_contents('./sorted-names-list.txt', $sortedNamesList);
 

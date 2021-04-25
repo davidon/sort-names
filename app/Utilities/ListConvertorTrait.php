@@ -44,23 +44,6 @@ trait ListConvertorTrait
     }
     
     /**
-     * Sort a two-dimensional array, firstly sort by sub-array of index 0, then by sub-array of index 1 and so on.
-     * Assume the array to be sorted has maximum four columns, and minimum two columns.
-     *
-     * @param array $data
-     * Two-dimensional array, formed by columns of the list, that is, sub-array of index 0 contains the first column of list, and so on.
-     * (It's not preferred to pass argument by reference - despite of legacy PHP internal functions doing that way)
-     *
-     * @return array
-     * Sorted array, still two-dimensional
-     */
-    private function sortArrayByColumns(array $data): array
-    {
-        // The reason to use instance of SorterCoreInterface is to provide flexibility to use different sorting algorithm.
-        return $this->sorterCore->sort($data);
-    }
-    
-    /**
      * Convert an array composed by columns  to array composed of rows, that is, array of persons.
      *
      * @param $columnArray
@@ -69,7 +52,7 @@ trait ListConvertorTrait
      * @return array
      * Two-dimensional array, each sub-array represents one row's record, for example, a person's names.
      */
-    private function convertColumnArrayToRowArray($columnArray): array
+    private function arrayColumnToRow($columnArray): array
     {
         $rowArray = [];
         array_walk_recursive(
@@ -92,7 +75,7 @@ trait ListConvertorTrait
      * @return array
      * One-dimensional array, each item is a space-separated string, for example, a person's names as text.
      */
-    private function convertRowToStrArray(array $data): array
+    private function stringifyRows(array $data): array
     {
         array_walk(
             $data, function (&$rowData) {

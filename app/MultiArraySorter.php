@@ -25,6 +25,6 @@ class MultiArraySorter implements Interfaces\SorterCoreInterface
         // each parameter must use $data[N], it can't be transformed in any way.
         array_multisort($data[0], $data[1], $data[2], $data[3]);
     
-        return $data;
+        return array_reverse($data);
     }
 }

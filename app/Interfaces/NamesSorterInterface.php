@@ -15,5 +15,5 @@ interface NamesSorterInterface
      *
      * @return string
      */
-    public function sortNamesList(string $unsortedNamesList): string;
+    public function sortList(string $unsortedNamesList): string;
 }

@@ -5,6 +5,7 @@ namespace Tests;
 
 use App\NamesSorter;
 use App\MultiArraySorter;
+use App\Transformer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,7 +47,10 @@ LIST;
      */
     protected function setUp(): void
     {
-        $this->sorter = new NamesSorter(new MultiArraySorter());
+        $this->sorter = new NamesSorter(
+            new MultiArraySorter(),
+            new Transformer()
+        );
         
         // This is to meet Liskov substitution principle, and also avoid PHPStorm warning.
         parent::setUp();
@@ -58,7 +62,7 @@ LIST;
      */
     public function testSortNamesList(): void
     {
-        $result = $this->sorter->sortNamesList(self::UNSORTED_NAMES_LIST);
+        $result = $this->sorter->sortList(self::UNSORTED_NAMES_LIST);
         self::assertSame(
             // Don't tab the names list;
             // Good practice for unit test doesn't transform the expected result in any way.
@@ -84,7 +88,7 @@ SORTED,
      */
     public function testSortNamesListWithDuplicateSurnames(): void
     {
-        $result = $this->sorter->sortNamesList(
+        $result = $this->sorter->sortList(
             <<<LIST
 Janet Parsons
 Vaughn Lewis
@@ -130,7 +134,7 @@ SORTED,
      */
     public function testSortNamesListWithDuplicateSurnamesGivenNames(): void
     {
-        $result = $this->sorter->sortNamesList(
+        $result = $this->sorter->sortList(
             <<<LIST
 Janet Parsons
 Vaughn Lewis
@@ -176,7 +180,7 @@ SORTED,
      */
     public function testSortNamesListWithDuplicateSurnamesTwoGivenNames(): void
     {
-        $result = $this->sorter->sortNamesList(
+        $result = $this->sorter->sortList(
             <<<LIST
 Janet Parsons
 Vaughn Lewis
@@ -222,7 +226,7 @@ SORTED,
      */
     public function testSortNamesListWithOneGivenName(): void
     {
-        $result = $this->sorter->sortNamesList(
+        $result = $this->sorter->sortList(
             <<<LIST
 Janet Parsons
 Vaughn Lewis
