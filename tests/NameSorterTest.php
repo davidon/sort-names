@@ -18,7 +18,7 @@ class NameSorterTest extends TestCase
     /**
      * Unsorted names list.
      *
-     * Although the fixture has duplicate records for each test method,
+     * Although the fixture has duplicate records for different test methods,
      * it's preferred to use the literal form rather than going through transformation.
      *
      * @const string
@@ -59,6 +59,8 @@ LIST;
     /**
      * Test sort names list
      * (using the original fixture).
+     *
+     * @throws \App\Exceptions\InvalidSourceException
      */
     public function testSortNamesList(): void
     {
@@ -85,6 +87,8 @@ SORTED,
     
     /**
      * Test sort names list with duplicate surnames.
+     *
+     * @throws \App\Exceptions\InvalidSourceException
      */
     public function testSortNamesListWithDuplicateSurnames(): void
     {
@@ -131,6 +135,8 @@ SORTED,
     
     /**
      * Test sort names list with duplicate surnames and given names.
+     *
+     * @throws \App\Exceptions\InvalidSourceException
      */
     public function testSortNamesListWithDuplicateSurnamesGivenNames(): void
     {
@@ -177,6 +183,8 @@ SORTED,
     
     /**
      * Test sort names list with duplicate surnames and two given names.
+     *
+     * @throws \App\Exceptions\InvalidSourceException
      */
     public function testSortNamesListWithDuplicateSurnamesTwoGivenNames(): void
     {
@@ -223,6 +231,8 @@ SORTED,
     
     /**
      * Test sort names list with only one given name.
+     *
+     * @throws \App\Exceptions\InvalidSourceException
      */
     public function testSortNamesListWithOneGivenName(): void
     {

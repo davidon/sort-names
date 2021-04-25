@@ -62,11 +62,13 @@ class NamesSorter implements NamesSorterInterface
      * @param string $unsortedNamesList
      *
      * @return string
+     *
+     * @throws \App\Exceptions\InvalidSourceException
      */
     public function sortList(string $unsortedNamesList): string
     {
         return $this->transformer->stringify(
-            $this->sorterCore->sort(
+            $this->sorterCore->sortArray(
                 $this->transformer->toArray($unsortedNamesList)
         ));
     }

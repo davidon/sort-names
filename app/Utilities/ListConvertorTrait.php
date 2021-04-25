@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Utilities;
 
+use App\Exceptions\InvalidSourceException;
+
 /**
  * Trait ListConvertorTrait
  */
@@ -21,6 +23,7 @@ trait ListConvertorTrait
      * @return array
      * Two-dimensional array, formed by columns of the list, that is, sub-array of index 0 contains the first column of list, and so on.
      * for example, sub-array of index 0 contains all the surnames, sub-array of index 1 contains all the last given names, and so on.
+     * @throws \App\Exceptions\InvalidSourceException
      */
     private function convertListToColumnArray(string $unsortedList): array
     {
@@ -28,8 +31,13 @@ trait ListConvertorTrait
         
         $rows = explode("\n", trim($unsortedList));
         foreach ($rows as $row) {
+            $rowArray = explode(' ', trim($row));
+            if (false === $this->validateListRow($rowArray)) {
+                throw new  InvalidSourceException('Each row of the list must have minimum 2 and maximum 4 columns.');
+            }
+    
             $rowArray = array_pad(
-                array_reverse(explode(' ', trim($row))),
+                array_reverse($rowArray),
                 4,
                 ''
             );
@@ -83,5 +91,17 @@ trait ListConvertorTrait
         });
         
         return $data;
+    }
+    
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    private function validateListRow(array $data): bool
+    {
+        $length = \count($data);
+        
+        return $length >= 2 && $length <= 4;
     }
 }

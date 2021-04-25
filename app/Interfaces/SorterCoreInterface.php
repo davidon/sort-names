@@ -14,5 +14,5 @@ interface SorterCoreInterface
      *
      * @return array
      */
-    public function sort(array $data): array;
+    public function sortArray(array $data): array;
 }

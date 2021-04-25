@@ -20,7 +20,7 @@ class MultiArraySorter implements Interfaces\SorterCoreInterface
      * @return array
      * Sorted array, still two-dimensional
      */
-    public function sort(array $data): array
+    public function sortArray(array $data): array
     {
         // each parameter must use $data[N], it can't be transformed in any way.
         array_multisort($data[0], $data[1], $data[2], $data[3]);
